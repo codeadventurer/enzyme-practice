@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { testAttr } from "./utils.js";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends Component {
+  state = {
+    counter: 0,
+  };
+
+  render() {
+    return (
+      <div {...testAttr("component-app")} className="App">
+        <h1 {...testAttr("counter-display")}>
+          {this.state.counter >= 0
+            ? `The counter is ${this.state.counter}`
+            : "The counter is 0"}
+        </h1>
+        {this.state.counter < 0 ? (
+          <p {...testAttr("error-message")}>The counter cannot go below zero</p>
+        ) : null}
+        <button
+          {...testAttr("increment-button")}
+          onClick={() => this.setState({ counter: this.state.counter + 1 })}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Increment
+        </button>
+        <br />
+        <button
+          {...testAttr("decrement-button")}
+          onClick={() => this.setState({ counter: this.state.counter - 1 })}
+        >
+          Decrement
+        </button>
+      </div>
+    );
+  }
 }
 
 export default App;
