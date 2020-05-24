@@ -110,9 +110,12 @@ test("don't display an error if counter above zero", () => {
   expect(error.exists()).toBeFalsy();
 });
 
-test("display an error if counter below zero", () => {
-  const counter = -1;
+test("display an error if counter is 0 and decrement button is clicked", () => {
+  const counter = 0;
   const wrapper = setup(null, { counter });
+
+  const button = findByTestAttr(wrapper, "decrement-button");
+  button.simulate("click");
 
   const error = findByTestAttr(wrapper, "error-message");
   expect(error.exists()).toBeTruthy();
